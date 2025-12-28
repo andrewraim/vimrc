@@ -8,6 +8,6 @@ SOURCES := common.vim completion.vim editor.vim fzf.vim keybinds.vim \
 
 install:
 	mkdir -p $(VIM)
-	cp dot_vimrc $(HOME)/.vimrc
+	cp dot-vimrc $(HOME)/.vimrc
 	cp $(SOURCES) $(VIM)/
 
