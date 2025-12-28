@@ -9,11 +9,11 @@ set laststatus=2
 function! StatuslineActive() abort
 	let l:out = ''                " left align
 	let l:out .= '%1*'            " switch color schemes
-	"let l:out .= ShortMode()     " vim mode using 1-2 chars 
-	let l:out .= LongMode()       " vim mode with readable label
+	let l:out .= ShortMode()     " vim mode using 1-2 chars 
+	"let l:out .= LongMode()       " vim mode with readable label
 	let l:out .= '%2*'            " switch color schemes
 	let l:out .= ' '              " blank char
-	let l:out .= '%.25f'          " relative path
+	let l:out .= '%.40f'          " relative path
 	let l:out .= ' '              " blank char
 	let l:out .= '%h%m%r'         " file flags (help, modified, read-only)
 	let l:out .= '%3*'            " switch color schemes
@@ -44,10 +44,11 @@ endfunction
 function StatuslineInactive()
 	let l:out = ''                " left align
 	let l:out .= '%9*'            " switch color schemes
-	let l:out .= NoLongMode()     " *** Suppress mode on inactive window ***
+	"let l:out .= NoLongMode()    " *** Suppress mode on inactive window ***
+	let l:out .= NoShortMode()    " *** Suppress mode on inactive window ***
 	let l:out .= '%9*'            " switch color schemes
 	let l:out .= ' '              " blank char
-	let l:out .= '%.25f'          " relative path
+	let l:out .= '%.40f'          " relative path
 	let l:out .= ' '              " blank char
 	let l:out .= '%h%m%r'         " file flags (help, modified, read-only)
 	let l:out .= '%9*'            " switch color schemes
@@ -160,6 +161,12 @@ endfunction
 function! NoLongMode() abort
 	return '        '
 endfunction
+
+function! NoShortMode() abort
+	return '  '
+endfunction
+
+
 
 " Here are a few themes I made from picking some colors.
 " A nice color picker app is <https://michurin.github.io/xterm256-color-picker>
