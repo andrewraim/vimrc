@@ -1,3 +1,4 @@
+runtime common.vim
 runtime editor.vim
 runtime st.vim
 runtime theme.vim

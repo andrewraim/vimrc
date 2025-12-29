@@ -1,8 +1,6 @@
 " Custom status bar without a plugin.
 " This is adapted from <https://tomdaly.dev/post/vanilla-vim-statusline>
 
-runtime common.vim
-
 " Need this for the status line to render initially
 set laststatus=2
 
