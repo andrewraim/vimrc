@@ -41,6 +41,9 @@ inoremap <NUL> <C-n>
 nnoremap gf :e <cfile><CR>
 vnoremap gf y :e <C-R>"<CR>
 
+" Insert today's date after the cursor
+nnoremap <leader>tt "=strftime("%Y-%m-%d")<CR>p
+
 " ***** Markdown bindings *****
 " Try to replicate some of the most useful behavior of Vimwiki. Aside from the
 " custom bindings below, here are some useful default ones.
