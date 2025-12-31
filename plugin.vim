@@ -22,7 +22,7 @@ endfunction
 "call s:ensure('jpalardy/vim-slime')            " Interact with REPL in Vim
 "call s:ensure('ervandew/supertab')             " Tab completion
 
-call s:ensure('vimwiki/vimwiki')               " Wiki in Vim
+"call s:ensure('vimwiki/vimwiki')               " Wiki in Vim
 call s:ensure('rust-lang/rust.vim')            " Rust language support
 call s:ensure('JuliaEditorSupport/julia-vim')  " Julia language support
 
