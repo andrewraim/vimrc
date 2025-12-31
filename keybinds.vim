@@ -77,7 +77,7 @@ function! MarkdownMaps()
 	vmap <CR> <leader>mf
 	nmap <BS> <C-o>
 	vmap <BS> <C-o>
-	nnoremap <silent> <Tab> /\[.\{-}\](.\{-})/e-2<CR>:noh<CR>
+	nnoremap <silent> <Tab> /\[.\{-}\](.\{-})/e-1<CR>:noh<CR>
 	nnoremap <silent> <S-Tab> ?\[.\{-}\](.\{-})<CR>:noh<CR>
 endfunction
 
