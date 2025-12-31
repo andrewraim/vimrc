@@ -42,7 +42,8 @@ nnoremap gf :e <cfile><CR>
 vnoremap gf y :e <C-R>"<CR>
 
 " ***** Markdown bindings *****
-" Aside from the custom ones below, here are some useful default ones
+" Try to replicate some of the most useful behavior of Vimwiki. Aside from the
+" custom bindings below, here are some useful default ones.
 " - gf: Open a file (but see above for modification)
 " - gx: Open an external link
 " - C-o: Jump back to previous buffer in history
@@ -62,4 +63,26 @@ vnoremap <leader>mu c<<C-r>"><Esc>
 " and add it.
 nnoremap <leader>mf :e <cfile>.md<CR>
 vnoremap <leader>mf y :e <C-R>".md<CR>
+
+" One step further for markdown files.
+"
+" Map Enter to follow links and backspace to jump back to the previous buffer
+" position. Avoid mapping command mode because we need Enter to be working as
+" usual there.
+"
+" Use Tab and S-Tab to search for next and previous instances of strings of
+" the form '[name](link)'.
+function! MarkdownMaps()
+	nmap <CR> <leader>mf
+	vmap <CR> <leader>mf
+	nmap <BS> <C-o>
+	vmap <BS> <C-o>
+	nnoremap <silent> <Tab> /\[.\{-}\](.\{-})/e-2<CR>:noh<CR>
+	nnoremap <silent> <S-Tab> ?\[.\{-}\](.\{-})<CR>:noh<CR>
+endfunction
+
+augroup MarkdownBindGroup
+  autocmd!
+  autocmd FileType markdown :call MarkdownMaps()
+augroup END
 
