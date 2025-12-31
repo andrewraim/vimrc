@@ -16,14 +16,15 @@ nnoremap <C-Up>    :wincmd W<CR>
 nnoremap <C-Left>  :tabprevious<CR>
 nnoremap <C-Right> :tabnext<CR>
 
-" Use cursor keys to scroll by visual lines (with wrapping). This covers normal,
-" insert, visual, and select modes.
+" Use cursor keys to scroll by visual lines (with wrapping). This covers
+" normal, insert, visual, and select modes. For insert mode, make sure we do
+" not interfere with the autocomplete menu
 nnoremap <Down> gj
 nnoremap <Up>   gk
-inoremap <Down> <C-O>gj
-inoremap <Up>   <C-O>gk
 vnoremap <Down> gj
 vnoremap <Up>   gk
+inoremap <expr> <Down> pumvisible() ? "<Down>" :"<C-O>gj"
+inoremap <expr> <Up>   pumvisible() ? "<Up>"   :"<C-O>gk"
 
 " Unbind Q from entering 'Ex' mode
 nnoremap Q <Nop>
