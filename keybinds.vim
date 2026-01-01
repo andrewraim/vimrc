@@ -87,8 +87,8 @@ inoremap <NUL> <C-n>
 " For visual mode, source is selection.
 "
 " For code blocks, treat visual line and visual character mode slightly
-" differently. We add an extra <CR> before the end of the block in character
-" mode to make sure the end marker is on it own line.
+" differently. We add an extra <CR> before the second fence in character mode
+" to make sure the end marker is on it own line.
 nnoremap <leader>m[ ciw[<C-r>"]<Esc>
 nnoremap <leader>ml ciw[<C-r>"](<C-r>")<Esc>
 nnoremap <leader>mr ciw[<C-r>"][<C-r>"]<Esc>
@@ -103,6 +103,13 @@ vnoremap <leader>m` c`<C-r>"`<Esc>
 xnoremap <expr> <leader>mc mode() ==# 'V' ?
 \ 'c```<CR><C-r>"```<CR><Esc>' :
 \ 'c```<CR><C-r>"<CR>```<CR><Esc>'
+
+" These make current word or selection into a code block, and also prompt for a
+" string label to be placed after the first fence.
+nnoremap <leader>mv caw```.input("Block type: ").<CR><C-r>"<CR>```<CR><Esc>
+xnoremap <expr> <leader>mv mode() ==# 'V' ?
+\ 'c```'.input("Block type: ").'<CR><C-r>"```<CR><Esc>' :
+\ 'c```'.input("Block type: ").'<CR><C-r>"<CR>```<CR><Esc>'
 
 " Search for next and previous links; these are instances of strings in the
 " form '[name](link)'.
