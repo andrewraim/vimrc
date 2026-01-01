@@ -59,15 +59,25 @@ nnoremap <leader>dt "=strftime("%H:%M:%S")<CR>p
 " we add some special (much more obvious) binds when editing markdown-type
 " files.
 
-" Create links in Markdown format: [ref][ref], [link](link), and <url>.
-" In normal mode, link title and target is based on the word under cursor.
-" In visual mode, link title and target are based on the word under selection.
+" Encapsulate text with Markdown syntax.
+" - ref -> [ref][ref]
+" - link -> [link](link)
+" - url -> <url>
+" - code -> `code`
+" - codeblock -> ```codeblock``` (with line breaks)
+"
+" In normal mode, source the word under cursor.
+" In visual mode, source is selection.
 nnoremap <leader>ml ciw[<C-r>"](<C-r>")<Esc>
 nnoremap <leader>mr ciw[<C-r>"][<C-r>"]<Esc>
 nnoremap <leader>mu ciw<<C-r>"><Esc>
+nnoremap <leader>m` ciw`<C-r>"`<Esc>
+nnoremap <leader>mc caw```<CR><C-r>"<CR>```<CR><Esc>
 vnoremap <leader>ml c[<C-r>"](<C-r>")<Esc>
 vnoremap <leader>mr c[<C-r>"][<C-r>"]<Esc>
 vnoremap <leader>mu c<<C-r>"><Esc>
+vnoremap <leader>m` c`<C-r>"`<Esc>
+vnoremap <leader>mc c```<CR><C-r>"```<CR><Esc>
 
 " Search for next and previous links; these are instances of strings in the
 " form '[name](link)'.
