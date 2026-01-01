@@ -4,21 +4,44 @@ let mapleader = " "
 " Open netrw (default file browser) with <leader>cd
 nnoremap <leader>cd :Ex<CR>
 
-" Ctrl + nav keys to move between windows and tabs
-nnoremap <C-j> :wincmd w<CR>
-nnoremap <C-k> :wincmd W<CR>
-nnoremap <C-h> :tabprevious<CR>
-nnoremap <C-l> :tabnext<CR>
+" Unbind Q from entering 'Ex' mode
+nnoremap Q <Nop>
 
-" Ctrl + cursor keys to move between windows and tabs
-nnoremap <C-Down>  :wincmd w<CR>
-nnoremap <C-Up>    :wincmd W<CR>
+" Insert current date and time after the cursor
+nnoremap <leader>dd "=strftime("%Y-%m-%d")<CR>p
+nnoremap <leader>df "=strftime("%m/%d/%Y")<CR>p
+nnoremap <leader>dt "=strftime("%H:%M:%S")<CR>p
+
+" ***** Navigation *****
+" Repeat for nav and cursor keys
+
+" Move focus between windows
+nnoremap <C-j>    :wincmd w<CR>
+nnoremap <C-k>    :wincmd W<CR>
+nnoremap <C-Down> :wincmd w<CR>
+nnoremap <C-Up>   :wincmd W<CR>
+
+" Arrange windows
+nmap <C-S-j>    <C-w>r<ESC>
+nmap <C-S-k>    <C-w>R<ESC>
+nmap <C-S-Down> <C-w>r<ESC>:wincmd w<CR>
+nmap <C-S-Up>   <C-w>R<ESC>:wincmd w<CR>
+
+" Move focus between tabs
+nnoremap <C-h>     :tabprevious<CR>
+nnoremap <C-l>     :tabnext<CR>
 nnoremap <C-Left>  :tabprevious<CR>
 nnoremap <C-Right> :tabnext<CR>
 
+" Arrange tabs
+nnoremap <C-S-l>     :tabmove +<CR>
+nnoremap <C-S-h>     :tabmove -<CR>
+nnoremap <C-S-Left>  :tabmove +<CR>
+nnoremap <C-S-Right> :tabmove -<CR>
+
 " Use cursor keys to scroll by visual lines (with wrapping). This covers
 " normal, insert, visual, and select modes. For insert mode, make sure we do
-" not interfere with the autocomplete menu.
+" not interfere with the completion menu.
 nnoremap <Down> gj
 nnoremap <Up>   gk
 vnoremap <Down> gj
@@ -26,25 +49,18 @@ vnoremap <Up>   gk
 inoremap <expr> <Down> pumvisible() ? "<Down>" :"<C-O>gj"
 inoremap <expr> <Up>   pumvisible() ? "<Up>"   :"<C-O>gk"
 
-" Unbind Q from entering 'Ex' mode
-nnoremap Q <Nop>
-
-" In insert mode, ctrl-space brings up native autocompetion. Include other
-" related commands that may be sent by terminals in lieu of ctrl-space.
-inoremap <C-Space> <C-n>
-inoremap <C-@> <C-n>
-inoremap <NUL> <C-n>
-
 " Modify default 'gf' behavior. Create a new buffer if the target file does
 " not exist yet. Then jump to the target whether it is a new buffer or an
 " existing file. Normal and visual mode handled slightly differently.
 nnoremap gf :e <cfile><CR>
-vnoremap gf y :e <C-R>"<CR>
+vnoremap gf y :e <C-r>"<CR>
 
-" Insert current date and time after the cursor
-nnoremap <leader>dd "=strftime("%Y-%m-%d")<CR>p
-nnoremap <leader>df "=strftime("%m/%d/%Y")<CR>p
-nnoremap <leader>dt "=strftime("%H:%M:%S")<CR>p
+" ***** Completion *****
+" In insert mode, ctrl-space brings up native competion. Include other
+" related commands that may be sent by terminals in lieu of ctrl-space.
+inoremap <C-Space> <C-n>
+inoremap <C-@> <C-n>
+inoremap <NUL> <C-n>
 
 " ***** Markdown bindings *****
 " Try to replicate some of the most useful behavior of Vimwiki. Aside from the
@@ -91,7 +107,7 @@ nnoremap <silent> <leader>mp ?\[.\{-}\](.\{-})<CR>:noh<CR>
 " omitted and add it. In particular, assume the extension is the same as the
 " current file. This is especially useful for markdown-type links.
 nnoremap <leader>gf :e <cfile>.%:e<CR>
-vnoremap <leader>gf y :e <C-R>".%:e<CR>
+vnoremap <leader>gf y :e <C-r>".%:e<CR>
 
 " One step further for markdown-type files.
 "
@@ -114,4 +130,41 @@ augroup MarkdownBindGroup
 	autocmd!
 	autocmd FileType markdown,quarto,rmd :call MarkdownBinds()
 augroup END
+
+" This doesn't quite work yet, but it should make a popup menu to select the
+" type of code block to make
+"vnoremap <leader>mc :call MarkdownBlockType()<CR>
+function! MarkdownBlockType() abort
+	function! MenuHandler(id, idx)
+		if a:idx < 0
+			return
+		endif
+
+		let value = ""
+		if a:idx > 1
+			let value = getbufline(winbufnr(a:id), a:idx)[0]
+		endif
+
+		"echom 'idx is '.a:idx
+		"execute printf("c ```%s\<CR><C-r>\"\<CR>```\<CR>", value)
+		"execute printf("c %s%s", '```', '<ESC>')
+		"execute printf("command! echom 'Good Job %s", '<CR>')
+		"echom 'Good Job'
+		"execute 'c```\<CR>\<C-r>\"```\<CR>\<Esc>'
+
+		"echom getreg('""')
+		"execute '<ESC>'
+		"execute "normal! c " . '```'. expand('<CR>').getreg('""').expand('<CR>').'```'.expand('<CR>')
+	endfunction
+
+	let items = ['<None>', '{}', '{r}', '{python}', '{julia}', '{latex}']
+
+	let args = #{
+    \ title: 'Code Block Type',
+    \ callback: 'MenuHandler'
+    \}
+
+	call popup_menu(items, args)
+	return "abcdef"
+endfunction
 

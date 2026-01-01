@@ -22,3 +22,4 @@ function! GitInfo(path) abort
 		return "(".gitrepo.":".gitrev.")"
 	endif
 endfunction
+
