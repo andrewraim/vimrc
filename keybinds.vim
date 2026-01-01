@@ -60,19 +60,22 @@ nnoremap <leader>dt "=strftime("%H:%M:%S")<CR>p
 " files.
 
 " Encapsulate text with Markdown syntax.
+" - shortcut -> [shortcut]
 " - ref -> [ref][ref]
 " - link -> [link](link)
 " - url -> <url>
 " - code -> `code`
 " - codeblock -> ```codeblock``` (with line breaks)
 "
-" In normal mode, source the word under cursor.
-" In visual mode, source is selection.
+" For normal mode, source is word under cursor.
+" For visual mode, source is selection.
+nnoremap <leader>m[ ciw[<C-r>"]<Esc>
 nnoremap <leader>ml ciw[<C-r>"](<C-r>")<Esc>
 nnoremap <leader>mr ciw[<C-r>"][<C-r>"]<Esc>
-nnoremap <leader>mu ciw<<C-r>"><Esc>
+nnoremap <leader>mu ciW<<C-r>"><Esc>
 nnoremap <leader>m` ciw`<C-r>"`<Esc>
 nnoremap <leader>mc caw```<CR><C-r>"<CR>```<CR><Esc>
+vnoremap <leader>m[ c[<C-r>"]<Esc>
 vnoremap <leader>ml c[<C-r>"](<C-r>")<Esc>
 vnoremap <leader>mr c[<C-r>"][<C-r>"]<Esc>
 vnoremap <leader>mu c<<C-r>"><Esc>
