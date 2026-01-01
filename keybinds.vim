@@ -85,6 +85,10 @@ inoremap <NUL> <C-n>
 "
 " For normal mode, source is word under cursor.
 " For visual mode, source is selection.
+"
+" For code blocks, treat visual line and visual character mode slightly
+" differently. We add an extra <CR> before the end of the block in character
+" mode to make sure the end marker is on it own line.
 nnoremap <leader>m[ ciw[<C-r>"]<Esc>
 nnoremap <leader>ml ciw[<C-r>"](<C-r>")<Esc>
 nnoremap <leader>mr ciw[<C-r>"][<C-r>"]<Esc>
@@ -96,7 +100,9 @@ vnoremap <leader>ml c[<C-r>"](<C-r>")<Esc>
 vnoremap <leader>mr c[<C-r>"][<C-r>"]<Esc>
 vnoremap <leader>mu c<<C-r>"><Esc>
 vnoremap <leader>m` c`<C-r>"`<Esc>
-vnoremap <leader>mc c```<CR><C-r>"```<CR><Esc>
+xnoremap <expr> <leader>mc mode() ==# 'V' ?
+\ 'c```<CR><C-r>"```<CR><Esc>' :
+\ 'c```<CR><C-r>"<CR>```<CR><Esc>'
 
 " Search for next and previous links; these are instances of strings in the
 " form '[name](link)'.
