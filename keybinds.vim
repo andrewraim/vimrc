@@ -86,6 +86,6 @@ endfunction
 
 augroup MarkdownBindGroup
   autocmd!
-  autocmd FileType markdown :call MarkdownMaps()
+  autocmd FileType markdown,quarto,rmd :call MarkdownMaps()
 augroup END
 
