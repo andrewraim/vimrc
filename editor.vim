@@ -61,3 +61,11 @@ set smartcase
 " Use the system clipboard, which is "XA_SECONDARY" in X11.
 set clipboard=unnamedplus
 
+" c: Auto-wraps comments.
+" r: Inserts the comment leader automatically when you press Enter.
+" o: Inserts the comment leader when you use the o or O normal-mode commands to open a new line. 
+set formatoptions-=c
+set formatoptions+=r
+set formatoptions-=o
+
+
