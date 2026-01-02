@@ -12,6 +12,10 @@ nnoremap <leader>dd "=strftime("%Y-%m-%d")<CR>p
 nnoremap <leader>df "=strftime("%m/%d/%Y")<CR>p
 nnoremap <leader>dt "=strftime("%H:%M:%S")<CR>p
 
+" Toggle numbering
+nnoremap <leader>nn :set number!<CR>
+nnoremap <leader>nr :set relativenumber!<CR>
+
 " ***** Navigation *****
 " Repeat for nav and cursor keys
 
@@ -131,8 +135,8 @@ vnoremap <leader>gf y :e <C-r>".%:e<CR>
 " Use Tab and S-Tab to search for next and previous links; these are instances
 " of strings in the form '[name](link)'.
 function! MarkdownBinds()
-	nmap <CR> <leader>mf
-	vmap <CR> <leader>mf
+	nmap <CR> <leader>gf
+	vmap <CR> <leader>gf
 	nmap <BS> <C-o>
 	vmap <BS> <C-o>
 	nmap <Tab>   <leader>mn
