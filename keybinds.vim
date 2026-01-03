@@ -60,9 +60,13 @@ nnoremap gf :e <cfile><CR>
 vnoremap gf y :e <C-r>"<CR>
 
 " ***** Interaction with Terminal *****
-" Note that `> is a special mark that represents the end of the last selection
-nnoremap <silent> <leader><leader> :call SendToTerm(getline('.')."\n")<CR>j
-vnoremap <silent> <leader><leader> y :<C-u>call SendToTerm(@")<CR> `>
+" Send line or selection to an open terminal. Send current line in normal mode
+" and selection in select mode. For normal mode, move cursor to the end of the
+" line, then to the next non-whitespace character. For select mode, move the
+" cursor to the end of the selection. Note that `> is a special mark that
+" represents the end of the last selection.
+nnoremap <silent> <leader><leader> :call SendToTerm(getline('.')."\n")<CR>g$/\S<CR>:nohl<CR>
+vnoremap <silent> <leader><leader> y :<C-u>call SendToTerm(@")<CR>`>
 
 " ***** Completion *****
 " In insert mode, ctrl-space brings up native competion. Include other
