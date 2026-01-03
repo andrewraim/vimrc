@@ -2,67 +2,67 @@
 let mapleader = " "
 
 " Open netrw (default file browser) with <leader>cd
-nnoremap <leader>cd :Ex<CR>
+nnoremap <leader>cd :Ex<cr>
 
 " Unbind Q from entering 'Ex' mode
-nnoremap Q <Nop>
+nnoremap Q <nop>
 
 " Insert current date and time after the cursor
-nnoremap <leader>dd "=strftime("%Y-%m-%d")<CR>p
-nnoremap <leader>df "=strftime("%m/%d/%Y")<CR>p
-nnoremap <leader>dt "=strftime("%H:%M:%S")<CR>p
+nnoremap <leader>dd "=strftime("%Y-%m-%d")<cr>p
+nnoremap <leader>df "=strftime("%m/%d/%Y")<cr>p
+nnoremap <leader>dt "=strftime("%H:%M:%S")<cr>p
 
 " Toggle numbering
-nnoremap <leader>nn :set number!<CR>
-nnoremap <leader>nr :set relativenumber!<CR>
+nnoremap <leader>nn :set number!<cr>
+nnoremap <leader>nr :set relativenumber!<cr>
 
 " ***** Navigation *****
 " Repeat for nav and cursor keys. Also need special consideration for terminal
 " commands to take precedence over terminal binds.
 
 " Move focus between windows
-nnoremap <C-j>    <C-w>w<ESC>
-nnoremap <C-k>    <C-w>W<ESC>
-nnoremap <C-Down> <C-w>w<ESC>
-nnoremap <C-Up>   <C-w>W<ESC>
-tnoremap <C-Down> <C-w>w<ESC>
-tnoremap <C-Up>   <C-w>W<ESC>
+nnoremap <c-j>    <c-w>w<esc>
+nnoremap <c-k>    <c-w>W<esc>
+nnoremap <c-down> <c-w>w<esc>
+nnoremap <c-up>   <c-w>W<esc>
+tnoremap <c-down> <c-w>w<esc>
+tnoremap <c-up>   <c-w>W<esc>
 
 " Arrange windows
-nnoremap <C-S-j>    <C-w>r<ESC>
-nnoremap <C-S-k>    <C-w>R<ESC>
-nnoremap <C-S-Down> <C-w>r<ESC>
-nnoremap <C-S-Up>   <C-w>R<ESC>
-tnoremap <C-S-Down> <C-w>r<ESC>
-tnoremap <C-S-Up>   <C-w>R<ESC>
+nnoremap <c-s-j>    <c-w>r<esc>
+nnoremap <c-s-k>    <c-w>R<esc>
+nnoremap <c-s-down> <c-w>r<esc>
+nnoremap <c-s-up>   <c-w>R<esc>
+tnoremap <c-s-down> <c-w>r<esc>
+tnoremap <c-s-up>   <c-w>R<esc>
 
 " Move focus between tabs
-nnoremap <silent> <C-h>     :tabprevious<CR>
-nnoremap <silent> <C-l>     :tabnext<CR>
-nnoremap <silent> <C-Left>  :tabprevious<CR>
-nnoremap <silent> <C-Right> :tabnext<CR>
+nnoremap <silent> <c-h>     :tabprevious<cr>
+nnoremap <silent> <c-l>     :tabnext<cr>
+nnoremap <silent> <c-left>  :tabprevious<cr>
+nnoremap <silent> <c-right> :tabnext<cr>
 
 " Arrange tabs
-nnoremap <silent> <C-S-l>     :tabmove +<CR>
-nnoremap <silent> <C-S-h>     :tabmove -<CR>
-nnoremap <silent> <C-S-Left>  :tabmove +<CR>
-nnoremap <silent> <C-S-Right> :tabmove -<CR>
+nnoremap <silent> <c-s-l>     :tabmove +<cr>
+nnoremap <silent> <c-s-h>     :tabmove -<cr>
+nnoremap <silent> <c-s-left>  :tabmove +<cr>
+nnoremap <silent> <c-s-right> :tabmove -<cr>
 
 " Use cursor keys to scroll by visual lines (with wrapping). This covers
 " normal, insert, visual, and select modes. For insert mode, make sure we do
 " not interfere with the completion menu.
-nnoremap <Down> gj
-nnoremap <Up>   gk
-vnoremap <Down> gj
-vnoremap <Up>   gk
-inoremap <expr> <Down> pumvisible() ? "<Down>" :"<C-O>gj"
-inoremap <expr> <Up>   pumvisible() ? "<Up>"   :"<C-O>gk"
+nnoremap <down> gj
+nnoremap <up>   gk
+vnoremap <down> gj
+vnoremap <up>   gk
+inoremap <expr> <down> pumvisible() ? "<down>" :"<c-o>gj"
+inoremap <expr> <up>   pumvisible() ? "<up>"   :"<c-o>gk"
 
 " Modify default 'gf' behavior. Create a new buffer if the target file does
 " not exist yet. Then jump to the target whether it is a new buffer or an
 " existing file. Normal and visual mode handled slightly differently.
-nnoremap gf :e <cfile><CR>
-vnoremap gf y :e <C-r>"<CR>
+nnoremap gf :e <cfile><cr>
+vnoremap gf y :e <c-r>"<cr>
 
 " ***** Interaction with Terminal *****
 
@@ -71,8 +71,8 @@ vnoremap gf y :e <C-r>"<CR>
 " line, then to the next non-whitespace character. For select mode, move the
 " cursor to the end of the selection. Note that `> is a special mark that
 " represents the end of the last selection.
-nnoremap <silent> <leader><leader> :call SendToTerm(getline('.')."\n")<CR>g$/\S<CR>:nohl<CR>
-vnoremap <silent> <leader><leader> y :<C-u>call SendToTerm(@")<CR>`>
+nnoremap <silent> <leader><leader> :call SendToTerm(getline('.')."\n")<cr>g$/\S<cr>:nohl<cr>
+vnoremap <silent> <leader><leader> y :<c-u>call SendToTerm(@")<cr>`>
 
 " Start a terminal in a split with some command associated with the current
 " buffer. This is especially intended for programming with an interactive
@@ -104,15 +104,15 @@ function! FileTypeToTerm(vert)
 	execute "normal! \<c-w>x"
 endfunction
 
-nnoremap <silent> <leader>th :call FileTypeToTerm(v:false)<CR>
-nnoremap <silent> <leader>tv :call FileTypeToTerm(v:true)<CR>
+nnoremap <silent> <leader>th :call FileTypeToTerm(v:false)<cr>
+nnoremap <silent> <leader>tv :call FileTypeToTerm(v:true)<cr>
 
 " ***** Completion *****
 " In insert mode, ctrl-space brings up native competion. Include other
 " related commands that may be sent by terminals in lieu of ctrl-space.
-inoremap <C-Space> <C-n>
-inoremap <C-@> <C-n>
-inoremap <NUL> <C-n>
+inoremap <c-space> <c-n>
+inoremap <c-@> <c-n>
+inoremap <NUL> <c-n>
 
 " ***** Markdown bindings *****
 " Try to replicate some of the most useful behavior of Vimwiki. Aside from the
@@ -120,8 +120,8 @@ inoremap <NUL> <C-n>
 "
 " - gf: Open a file (but see above for modification)
 " - gx: Open an external link
-" - C-o: Jump back to previous buffer in history
-" - C-i: Jump forward to next buffer in history 
+" - c-o: Jump back to previous buffer in history
+" - c-i: Jump forward to next buffer in history 
 "
 " The following 'leader' binds can be used within any file type. Additionally,
 " we add some special (much more obvious) binds when editing markdown-type
@@ -139,40 +139,40 @@ inoremap <NUL> <C-n>
 " For visual mode, source is selection.
 "
 " For code blocks, treat visual line and visual character mode slightly
-" differently. We add an extra <CR> before the second fence in character mode
+" differently. We add an extra <cr> before the second fence in character mode
 " to make sure the end marker is on it own line.
-nnoremap <leader>m[ ciw[<C-r>"]<Esc>
-nnoremap <leader>ml ciw[<C-r>"](<C-r>")<Esc>
-nnoremap <leader>mr ciw[<C-r>"][<C-r>"]<Esc>
-nnoremap <leader>mu ciW<<C-r>"><Esc>
-nnoremap <leader>m` ciw`<C-r>"`<Esc>
-nnoremap <leader>mc caw```<CR><C-r>"<CR>```<CR><Esc>
-vnoremap <leader>m[ c[<C-r>"]<Esc>
-vnoremap <leader>ml c[<C-r>"](<C-r>")<Esc>
-vnoremap <leader>mr c[<C-r>"][<C-r>"]<Esc>
-vnoremap <leader>mu c<<C-r>"><Esc>
-vnoremap <leader>m` c`<C-r>"`<Esc>
+nnoremap <leader>m[ ciw[<c-r>"]<esc>
+nnoremap <leader>ml ciw[<c-r>"](<c-r>")<esc>
+nnoremap <leader>mr ciw[<c-r>"][<c-r>"]<esc>
+nnoremap <leader>mu ciW<<c-r>"><esc>
+nnoremap <leader>m` ciw`<c-r>"`<esc>
+nnoremap <leader>mc caw```<cr><c-r>"<cr>```<cr><esc>
+vnoremap <leader>m[ c[<c-r>"]<esc>
+vnoremap <leader>ml c[<c-r>"](<c-r>")<esc>
+vnoremap <leader>mr c[<c-r>"][<c-r>"]<esc>
+vnoremap <leader>mu c<<c-r>"><esc>
+vnoremap <leader>m` c`<c-r>"`<esc>
 xnoremap <expr> <leader>mc mode() ==# 'V' ?
-\ 'c```<CR><C-r>"```<CR><Esc>' :
-\ 'c```<CR><C-r>"<CR>```<CR><Esc>'
+\ 'c```<cr><c-r>"```<cr><esc>' :
+\ 'c```<cr><c-r>"<cr>```<cr><esc>'
 
 " These make current word or selection into a code block, and also prompt for a
 " string label to be placed after the first fence.
-nnoremap <leader>mv caw```.input("Block type: ").<CR><C-r>"<CR>```<CR><Esc>
+nnoremap <leader>mv caw```.input("Block type: ").<cr><c-r>"<cr>```<cr><esc>
 xnoremap <expr> <leader>mv mode() ==# 'V' ?
-\ 'c```'.input("Block type: ").'<CR><C-r>"```<CR><Esc>' :
-\ 'c```'.input("Block type: ").'<CR><C-r>"<CR>```<CR><Esc>'
+\ 'c```'.input("Block type: ").'<cr><c-r>"```<cr><esc>' :
+\ 'c```'.input("Block type: ").'<cr><c-r>"<cr>```<cr><esc>'
 
 " Search for next and previous links; these are instances of strings in the
 " form '[name](link)'.
-nnoremap <silent> <leader>mn /\[.\{-}\](.\{-})/e-1<CR>:noh<CR>
-nnoremap <silent> <leader>mp ?\[.\{-}\](.\{-})<CR>:noh<CR>
+nnoremap <silent> <leader>mn /\[.\{-}\](.\{-})/e-1<cr>:noh<cr>
+nnoremap <silent> <leader>mp ?\[.\{-}\](.\{-})<cr>:noh<cr>
 
 " Like the modified 'gf' keybinding from above, but assume the extension is
 " omitted and add it. In particular, assume the extension is the same as the
 " current file. This is especially useful for markdown-type links.
-nnoremap <leader>gf :e <cfile>.%:e<CR>
-vnoremap <leader>gf y :e <C-r>".%:e<CR>
+nnoremap <leader>gf :e <cfile>.%:e<cr>
+vnoremap <leader>gf y :e <c-r>".%:e<cr>
 
 " One step further for markdown-type files.
 "
@@ -183,12 +183,12 @@ vnoremap <leader>gf y :e <C-r>".%:e<CR>
 " Use Tab and S-Tab to search for next and previous links; these are instances
 " of strings in the form '[name](link)'.
 function! MarkdownBinds()
-	nmap <CR> <leader>gf
-	vmap <CR> <leader>gf
-	nmap <BS> <C-o>
-	vmap <BS> <C-o>
-	nmap <Tab>   <leader>mn
-	nmap <S-Tab> <leader>mp
+	nmap <cr> <leader>gf
+	vmap <cr> <leader>gf
+	nmap <bs> <c-o>
+	vmap <bs> <c-o>
+	nmap <tab>   <leader>mn
+	nmap <s-tab> <leader>mp
 endfunction
 
 augroup MarkdownBindGroup
@@ -198,7 +198,7 @@ augroup END
 
 " This doesn't quite work yet, but it should make a popup menu to select the
 " type of code block to make
-"vnoremap <leader>mc :call MarkdownBlockType()<CR>
+"vnoremap <leader>mc :call MarkdownBlockType()<cr>
 function! MarkdownBlockType() abort
 	function! MenuHandler(id, idx)
 		if a:idx < 0
@@ -211,15 +211,15 @@ function! MarkdownBlockType() abort
 		endif
 
 		"echom 'idx is '.a:idx
-		"execute printf("c ```%s\<CR><C-r>\"\<CR>```\<CR>", value)
-		"execute printf("c %s%s", '```', '<ESC>')
-		"execute printf("command! echom 'Good Job %s", '<CR>')
+		"execute printf("c ```%s\<cr><c-r>\"\<cr>```\<cr>", value)
+		"execute printf("c %s%s", '```', '<esc>')
+		"execute printf("command! echom 'Good Job %s", '<cr>')
 		"echom 'Good Job'
-		"execute 'c```\<CR>\<C-r>\"```\<CR>\<Esc>'
+		"execute 'c```\<cr>\<c-r>\"```\<cr>\<esc>'
 
 		"echom getreg('""')
-		"execute '<ESC>'
-		"execute "normal! c " . '```'. expand('<CR>').getreg('""').expand('<CR>').'```'.expand('<CR>')
+		"execute '<esc>'
+		"execute "normal! c " . '```'. expand('<cr>').getreg('""').expand('<cr>').'```'.expand('<cr>')
 	endfunction
 
 	let items = ['<None>', '{}', '{r}', '{python}', '{julia}', '{latex}']
