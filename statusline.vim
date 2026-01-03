@@ -109,8 +109,9 @@ function! GetWindow()
 endfunction
 
 function! GetBuffer()
-	if bufnr('$') > 1
-		return "%n"
+	let num = len(getbufinfo({'buflisted': 1}))
+	if num > 1
+		return "%n[" . num . "]"
 	else
 		return ""
 	endif
