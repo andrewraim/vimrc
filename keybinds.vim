@@ -16,15 +16,6 @@ nnoremap <leader>dt "=strftime("%H:%M:%S")<CR>p
 nnoremap <leader>nn :set number!<CR>
 nnoremap <leader>nr :set relativenumber!<CR>
 
-" Start a terminal in a split, issue a command, and jump back to the previous
-" buffer.
-" TBD: To determine which program to run, use Vim's determination of the type
-" of the current buffer.
-nnoremap <silent> <leader>/r :vert term<CR>R<CR><C-l> <C-w>W<ESC>
-nnoremap <silent> <leader>/rh :term<CR>R<CR><C-l> <C-w>W<ESC>
-nnoremap <silent> <leader>/l :vert term<CR>pdflatex<CR><C-l> <C-w>W<ESC>
-nnoremap <silent> <leader>/lh :term<CR>pdflatex<CR><C-l> <C-w>W<ESC>
-
 " ***** Navigation *****
 " Repeat for nav and cursor keys. Also need special consideration for terminal
 " commands to take precedence over terminal binds.
@@ -74,6 +65,7 @@ nnoremap gf :e <cfile><CR>
 vnoremap gf y :e <C-r>"<CR>
 
 " ***** Interaction with Terminal *****
+
 " Send line or selection to an open terminal. Send current line in normal mode
 " and selection in select mode. For normal mode, move cursor to the end of the
 " line, then to the next non-whitespace character. For select mode, move the
@@ -81,6 +73,39 @@ vnoremap gf y :e <C-r>"<CR>
 " represents the end of the last selection.
 nnoremap <silent> <leader><leader> :call SendToTerm(getline('.')."\n")<CR>g$/\S<CR>:nohl<CR>
 vnoremap <silent> <leader><leader> y :<C-u>call SendToTerm(@")<CR>`>
+
+" Start a terminal in a split with some command associated with the current
+" buffer. This is especially intended for programming with an interactive
+" interpreter.
+function! FileTypeToTerm(vert)
+	" Get the filetype of the current buffer and determine a corresponding
+	" to issue in the terminal that we are about to spawn.
+    if &filetype == 'r'
+		let cmd = "R\n"
+    elseif &filetype == 'julia'
+		let cmd = "julia\n"
+    elseif &filetype == 'python'
+		let cmd = "python\n"
+    else
+		" For everything else, just launch the terminal itself
+		let cmd = ""
+    endif
+
+	" Start terminal either with a vertical or horizontal split and run the
+	" command from last step. Note that, if a nontrivial command is given, the
+	" terminal will halt when the command exists.
+	if a:vert
+		execute "vertical terminal! " . cmd
+	else
+		execute "terminal! " . cmd
+	endif
+
+	" Move focus back to the previous buffer
+	execute "normal! \<c-w>x"
+endfunction
+
+nnoremap <silent> <leader>th :call FileTypeToTerm(v:false)<CR>
+nnoremap <silent> <leader>tv :call FileTypeToTerm(v:true)<CR>
 
 " ***** Completion *****
 " In insert mode, ctrl-space brings up native competion. Include other
