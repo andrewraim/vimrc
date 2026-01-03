@@ -88,36 +88,6 @@ xnoremap <expr> <leader><leader> mode() ==# 'V' ?
 \ 'y :<c-u>call SendToTerm(@")<cr>`>' :
 \ 'y :<c-u>call SendToTerm(@")<cr>`>:<c-u>call SendToTerm("\n")<cr>`<esc>'
 
-" Start a terminal in a split with some command associated with the current
-" buffer. This is especially intended for programming with an interactive
-" interpreter.
-function! FileTypeToTerm(vert)
-	" Get the filetype of the current buffer and determine a corresponding
-	" to issue in the terminal that we are about to spawn.
-    if &filetype == 'r'
-		let cmd = "R\n"
-    elseif &filetype == 'julia'
-		let cmd = "julia\n"
-    elseif &filetype == 'python'
-		let cmd = "python\n"
-    else
-		" For everything else, just launch the terminal itself
-		let cmd = ""
-    endif
-
-	" Start terminal either with a vertical or horizontal split and run the
-	" command from last step. Note that, if a nontrivial command is given, the
-	" terminal will halt when the command exists.
-	if a:vert
-		execute "vertical terminal! " . cmd
-	else
-		execute "terminal! " . cmd
-	endif
-
-	" Move focus back to the previous buffer
-	execute "normal! \<c-w>x"
-endfunction
-
 nnoremap <silent> <leader>th :call FileTypeToTerm(v:false)<cr>
 nnoremap <silent> <leader>tv :call FileTypeToTerm(v:true)<cr>
 
