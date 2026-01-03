@@ -16,32 +16,46 @@ nnoremap <leader>dt "=strftime("%H:%M:%S")<CR>p
 nnoremap <leader>nn :set number!<CR>
 nnoremap <leader>nr :set relativenumber!<CR>
 
+" Start a terminal in a split, issue a command, and jump back to the previous
+" buffer.
+" TBD: To determine which program to run, use Vim's determination of the type
+" of the current buffer.
+nnoremap <silent> <leader>/r :vert term<CR>R<CR><C-l> <C-w>W<ESC>
+nnoremap <silent> <leader>/rh :term<CR>R<CR><C-l> <C-w>W<ESC>
+nnoremap <silent> <leader>/l :vert term<CR>pdflatex<CR><C-l> <C-w>W<ESC>
+nnoremap <silent> <leader>/lh :term<CR>pdflatex<CR><C-l> <C-w>W<ESC>
+
 " ***** Navigation *****
-" Repeat for nav and cursor keys
+" Repeat for nav and cursor keys. Also need special consideration for terminal
+" commands to take precedence over terminal binds.
 
 " Move focus between windows
-nnoremap <C-j>    :wincmd w<CR>
-nnoremap <C-k>    :wincmd W<CR>
-nnoremap <C-Down> :wincmd w<CR>
-nnoremap <C-Up>   :wincmd W<CR>
+nnoremap <C-j>    <C-w>w<ESC>
+nnoremap <C-k>    <C-w>W<ESC>
+nnoremap <C-Down> <C-w>w<ESC>
+nnoremap <C-Up>   <C-w>W<ESC>
+tnoremap <C-Down> <C-w>w<ESC>
+tnoremap <C-Up>   <C-w>W<ESC>
 
 " Arrange windows
-nmap <C-S-j>    <C-w>r<ESC>
-nmap <C-S-k>    <C-w>R<ESC>
-nmap <C-S-Down> <C-w>r<ESC>:wincmd w<CR>
-nmap <C-S-Up>   <C-w>R<ESC>:wincmd w<CR>
+nnoremap <C-S-j>    <C-w>r<ESC>
+nnoremap <C-S-k>    <C-w>R<ESC>
+nnoremap <C-S-Down> <C-w>r<ESC>
+nnoremap <C-S-Up>   <C-w>R<ESC>
+tnoremap <C-S-Down> <C-w>r<ESC>
+tnoremap <C-S-Up>   <C-w>R<ESC>
 
 " Move focus between tabs
-nnoremap <C-h>     :tabprevious<CR>
-nnoremap <C-l>     :tabnext<CR>
-nnoremap <C-Left>  :tabprevious<CR>
-nnoremap <C-Right> :tabnext<CR>
+nnoremap <silent> <C-h>     :tabprevious<CR>
+nnoremap <silent> <C-l>     :tabnext<CR>
+nnoremap <silent> <C-Left>  :tabprevious<CR>
+nnoremap <silent> <C-Right> :tabnext<CR>
 
 " Arrange tabs
-nnoremap <C-S-l>     :tabmove +<CR>
-nnoremap <C-S-h>     :tabmove -<CR>
-nnoremap <C-S-Left>  :tabmove +<CR>
-nnoremap <C-S-Right> :tabmove -<CR>
+nnoremap <silent> <C-S-l>     :tabmove +<CR>
+nnoremap <silent> <C-S-h>     :tabmove -<CR>
+nnoremap <silent> <C-S-Left>  :tabmove +<CR>
+nnoremap <silent> <C-S-Right> :tabmove -<CR>
 
 " Use cursor keys to scroll by visual lines (with wrapping). This covers
 " normal, insert, visual, and select modes. For insert mode, make sure we do
