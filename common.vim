@@ -25,8 +25,13 @@ endfunction
 
 " Send text to the first terminal in the terminal list
 function! SendToTerm(content)
-	let term_buf_nr = term_list()[0]
+	let tl = term_list()
+	if len(tl) == 0
+		echom "No terminal buffer found"
+		return
+	endif
 
+	let term_buf_nr = tl[0]
 	if bufexists(term_buf_nr) && getbufvar(term_buf_nr, '&buftype') ==# 'terminal'
 		call term_sendkeys(term_buf_nr, a:content)
 	else
