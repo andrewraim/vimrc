@@ -17,34 +17,39 @@ nnoremap <leader>nn :set number!<cr>
 nnoremap <leader>nr :set relativenumber!<cr>
 
 " ***** Navigation *****
-" Repeat for nav and cursor keys. Also need special consideration for terminal
-" commands to take precedence over terminal binds.
+" Navigate between windows and tabs with preferred cursor binds. Includes
+" special consideration for terminal commands to take precedence over
+" terminal binds.
+" 
+" I attempted to repeat for the nav keys, but they are not working correctly
+" for some reason. But I don't use them that much, so I consider them low
+" priority and have comment them out for now.
 
 " Move focus between windows
-nnoremap <c-j>    <c-w>w<esc>
-nnoremap <c-k>    <c-w>W<esc>
-nnoremap <c-down> <c-w>w<esc>
-nnoremap <c-up>   <c-w>W<esc>
-tnoremap <c-down> <c-w>w<esc>
-tnoremap <c-up>   <c-w>W<esc>
+"nmap <c-j>    <c-w>w
+"nmap <c-k>    <c-w>W
+nmap <c-down> <c-w>w
+nmap <c-up>   <c-w>W
+tmap <c-down> <c-w>w
+tmap <c-up>   <c-w>W
 
 " Arrange windows
-nnoremap <c-s-j>    <c-w>r<esc>
-nnoremap <c-s-k>    <c-w>R<esc>
-nnoremap <c-s-down> <c-w>r<esc>
-nnoremap <c-s-up>   <c-w>R<esc>
-tnoremap <c-s-down> <c-w>r<esc>
-tnoremap <c-s-up>   <c-w>R<esc>
+"nmap <c-s-j>    <c-w>r
+"nmap <c-s-k>    <c-w>R
+nmap <c-s-down> <c-w>r
+nmap <c-s-up>   <c-w>R
+tmap <c-s-down> <c-w>r
+tmap <c-s-up>   <c-w>R
 
 " Move focus between tabs
-nnoremap <silent> <c-h>     :tabprevious<cr>
-nnoremap <silent> <c-l>     :tabnext<cr>
+"nnoremap <silent> <c-h>     :tabprevious<cr>
+"nnoremap <silent> <c-l>     :tabnext<cr>
 nnoremap <silent> <c-left>  :tabprevious<cr>
 nnoremap <silent> <c-right> :tabnext<cr>
 
 " Arrange tabs
-nnoremap <silent> <c-s-l>     :tabmove +<cr>
-nnoremap <silent> <c-s-h>     :tabmove -<cr>
+"nnoremap <silent> <c-s-l>     :tabmove +<cr>
+"nnoremap <silent> <c-s-h>     :tabmove -<cr>
 nnoremap <silent> <c-s-left>  :tabmove +<cr>
 nnoremap <silent> <c-s-right> :tabmove -<cr>
 
@@ -66,13 +71,22 @@ vnoremap gf y :e <c-r>"<cr>
 
 " ***** Interaction with Terminal *****
 
-" Send line or selection to an open terminal. Send current line in normal mode
-" and selection in select mode. For normal mode, move cursor to the end of the
-" line, then to the next non-whitespace character. For select mode, move the
-" cursor to the end of the selection. Note that `> is a special mark that
-" represents the end of the last selection.
+" Send line or selection to an open terminal.
+" 
+" - Normal mode: send current line and move cursor to the next non-whitespace
+"   character after the line.
+" - Line selection mode: send the selection, without an extra newline, and
+"   place the cursor at the end of the selection.
+" - Selection mode: send the selection and an extra newline, then place the 
+"   cursor at the end of the selection.
+"
+" Note that `> is a special mark that represents the end of the last selection.
+" There should be a more readable way to write the visual mode command. Maybe
+" as a function?
 nnoremap <silent> <leader><leader> :call SendToTerm(getline('.')."\n")<cr>g$/\S<cr>:nohl<cr>
-vnoremap <silent> <leader><leader> y :<c-u>call SendToTerm(@")<cr>`>
+xnoremap <expr> <leader><leader> mode() ==# 'V' ?
+\ 'y :<c-u>call SendToTerm(@")<cr>`>' :
+\ 'y :<c-u>call SendToTerm(@")<cr>`>:<c-u>call SendToTerm("\n")<cr>`<esc>'
 
 " Start a terminal in a split with some command associated with the current
 " buffer. This is especially intended for programming with an interactive
