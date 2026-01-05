@@ -83,11 +83,12 @@ vnoremap gf y :e <c-r>"<cr>
 " Note that `> is a special mark that represents the end of the last selection.
 " There should be a more readable way to write the visual mode command. Maybe
 " as a function?
-nnoremap <silent> <leader><leader> :call SendToTerm(getline('.')."\n")<cr>
-\ g$:call search('\S', 'W')<cr>:nohl<cr>
-xnoremap <expr> <leader><leader> mode() ==# 'V' ?
+nnoremap <silent> <leader><leader> :call SendToTerm(getline('.')."\n")<cr>g$
+\:call search('\S', 'W')<cr>:nohl<cr>
+xnoremap <expr> <silent> <leader><leader> mode() ==# 'V' ?
 \ 'y :<c-u>call SendToTerm(@")<cr>`>' :
-\ 'y :<c-u>call SendToTerm(@")<cr>`>:<c-u>call SendToTerm("\n")<cr>`<esc>'
+\ 'y :<c-u>call SendToTerm(@" . "\n")<cr>`>'
+
 
 nnoremap <silent> <leader>th :call FileTypeToTerm(v:false)<cr>
 nnoremap <silent> <leader>tv :call FileTypeToTerm(v:true)<cr>
