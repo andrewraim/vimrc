@@ -49,7 +49,7 @@ function! RProjectMenu() abort
 		elseif sel == 'Manual'
 			let cmd = printf('devtools::build_manual("%s")', projroot)
 		elseif sel == 'Vignettes'
-			let cmd = printf('devtools::vignettes("%s")', projroot)
+			let cmd = printf('devtools::build_vignettes("%s")', projroot)
 		elseif sel == 'Build Source'
 			let cmd = printf('devtools::build("%s")', projroot)
 		elseif sel == 'Build Binary'
