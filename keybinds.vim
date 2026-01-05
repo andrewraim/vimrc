@@ -83,7 +83,8 @@ vnoremap gf y :e <c-r>"<cr>
 " Note that `> is a special mark that represents the end of the last selection.
 " There should be a more readable way to write the visual mode command. Maybe
 " as a function?
-nnoremap <silent> <leader><leader> :call SendToTerm(getline('.')."\n")<cr>g$/\S<cr>:nohl<cr>
+nnoremap <silent> <leader><leader> :call SendToTerm(getline('.')."\n")<cr>
+\ g$:call search('\S', 'W')<cr>:nohl<cr>
 xnoremap <expr> <leader><leader> mode() ==# 'V' ?
 \ 'y :<c-u>call SendToTerm(@")<cr>`>' :
 \ 'y :<c-u>call SendToTerm(@")<cr>`>:<c-u>call SendToTerm("\n")<cr>`<esc>'
@@ -209,9 +210,9 @@ function! MarkdownBlockType() abort
 	let items = ['<None>', '{}', '{r}', '{python}', '{julia}', '{latex}']
 
 	let args = #{
-    \ title: 'Code Block Type',
-    \ callback: 'MenuHandler'
-    \}
+	\ title: 'Code Block Type',
+	\ callback: 'MenuHandler'
+	\}
 
 	call popup_menu(items, args)
 	return "abcdef"

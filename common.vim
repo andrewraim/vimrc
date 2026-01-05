@@ -45,16 +45,16 @@ endfunction
 function! FileTypeToTerm(vert)
 	" Get the filetype of the current buffer and determine a corresponding
 	" to issue in the terminal that we are about to spawn.
-    if &filetype == 'r'
+	if &filetype == 'r'
 		let cmd = "R\n"
-    elseif &filetype == 'julia'
+	elseif &filetype == 'julia'
 		let cmd = "julia\n"
-    elseif &filetype == 'python'
+	elseif &filetype == 'python'
 		let cmd = "python\n"
-    else
+	else
 		" For everything else, just launch the terminal itself
 		let cmd = ""
-    endif
+	endif
 
 	" Start terminal either with a vertical or horizontal split and run the
 	" command from last step. Note that, if a nontrivial command is given, the
