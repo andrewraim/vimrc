@@ -5,5 +5,7 @@ runtime theme.vim
 runtime keybinds.vim
 runtime completion.vim
 runtime statusline.vim
-"runtime plugin.vim
+runtime r.vim
+runtime markdown.vim
+runtime term.vim
 
