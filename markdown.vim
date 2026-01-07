@@ -52,11 +52,13 @@ xnoremap <expr> <leader>mv mode() ==# 'V' ?
 nnoremap <silent> <leader>mn /\[.\{-}\](.\{-})/e-1<cr>:noh<cr>
 nnoremap <silent> <leader>mp ?\[.\{-}\](.\{-})<cr>:noh<cr>
 
-" Like the modified 'gf' keybinding from above, but assume the extension is
-" omitted and add it. In particular, assume the extension is the same as the
-" current file. This is especially useful for markdown-type links.
-nnoremap <leader>gf :e <cfile>.%:e<cr>
-vnoremap <leader>gf y :e <c-r>".%:e<cr>
+" Like the modified 'gf' keybinding, create the buffer if it does not exist.
+" Here we also assume the extension is omitted and that the path is relative to
+" the buffer (rather than the current working directory). In particular, assume
+" the extension is the same as the current file.  This is especially for
+" markdown-type links, but could be useful elsewhere.
+nnoremap <leader>gf :e %:h/<cfile>.%:e<cr>
+vnoremap <leader>gf y :e %:h/<c-r>".%:e<cr>
 
 " One step further for markdown-type files.
 "
