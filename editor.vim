@@ -59,7 +59,7 @@ set smartcase
 " set relativenumber
 
 " Use the system clipboard, which is "XA_SECONDARY" in X11.
-" set clipboard=unnamedplus
+set clipboard=unnamedplus
 
 " c: Auto-wraps comments.
 " r: Inserts the comment leader automatically when you press Enter.
