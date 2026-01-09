@@ -1,7 +1,7 @@
 VIM := $(HOME)/.vim
 
-SOURCES := vimrc common.vim completion.vim editor.vim keybinds.vim \
-	statusline.vim st.vim theme.vim r.vim markdown.vim term.vim
+SOURCES := vimrc completion.vim editor.vim keybinds.vim statusline.vim st.vim \
+	theme.vim r.vim markdown.vim term.vim
 
 .PHONY: install
 

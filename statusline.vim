@@ -21,9 +21,9 @@ function! StatuslineActive() abort
 	let l:out .= GitStatusLine()  " include git repo and branch
 	let l:out .= '%5*'            " switch color schemes
 	let l:out .= ' '              " blank char
-	let l:out .= '%{&ff}'         " file format
-	let l:out .= ' '              " blank char
 	let l:out .= '%y'             " file type
+	let l:out .= ' '              " blank char
+	let l:out .= '%{&ff}'         " file format
 	"let l:out = ' '              " blank char
 	let l:out .= '%6*'            " switch color schemes
 	let l:out .= '%4p'            " progress through file (%) of cursor
@@ -42,8 +42,8 @@ endfunction
 function StatuslineInactive()
 	let l:out = ''                " left align
 	let l:out .= '%9*'            " switch color schemes
-	"let l:out .= NoLongMode()    " *** Suppress mode on inactive window ***
-	let l:out .= NoShortMode()    " *** Suppress mode on inactive window ***
+	"let l:out .= NoLongMode()    " *** Suppress on inactive window ***
+	let l:out .= NoShortMode()    " *** Suppress on inactive window ***
 	let l:out .= '%9*'            " switch color schemes
 	let l:out .= ' '              " blank char
 	let l:out .= '%.40f'          " relative path
@@ -53,12 +53,12 @@ function StatuslineInactive()
 	let l:out .= '%='             " right align
 	let l:out .= '%*'
 	let l:out .= '%9*'            " switch color schemes
-	"let l:out .= GitStatusLine() " *** Suppress mode on inactive window ***
+	"let l:out .= GitStatusLine() " *** Suppress on inactive window ***
 	let l:out .= '%9*'            " switch color schemes
 	let l:out .= ' '              " blank char
-	let l:out .= '%{&ff}'         " file format
-	let l:out .= ' '              " blank char
 	let l:out .= '%y'             " file type
+	let l:out .= ' '              " blank char
+	let l:out .= '%{&ff}'         " file format
 	"let l:out = ' '              " blank char
 	let l:out .= '%9*'            " switch color schemes
 	let l:out .= '%4p'            " progress through file (%) of cursor
@@ -88,8 +88,8 @@ function! GitStatusLine()
 	return printf(" %s", l:out)
 endfunction
 
-" This doesn't work the way I want. It returns the currently highlighted
-" window.
+" This doesn't work the way I want. It returns info for the currently
+" highlighted window rather than for the buffer 
 function! GetWinBuf() abort
 	if winnr('$') > 1 || bufnr('$') > 1
 		return printf(" %s -> %s", bufnr(), winnr())
@@ -98,8 +98,8 @@ function! GetWinBuf() abort
 	endif
 endfunction
 
-" This doesn't work the way I want. It returns the currently highlighted
-" window.
+" This doesn't work the way I want. It returns info for the currently
+" highlighted window rather than for the buffer 
 function! GetWindow()
 	if winnr('$') > 1
 		return printf( "%s", winnr())
@@ -165,8 +165,6 @@ function! NoShortMode() abort
 	return '  '
 endfunction
 
-
-
 " Here are a few themes I made from picking some colors.
 " A nice color picker app is <https://michurin.github.io/xterm256-color-picker>
 
@@ -211,7 +209,6 @@ hi User6 ctermbg=025 ctermfg=254 guibg=gray  guifg=white  " Info 6
 hi User7 ctermbg=024 ctermfg=254 guibg=gray  guifg=white  " Info 7
 hi User9 ctermbg=000 ctermfg=244 guibg=black guifg=grey   " Dimmed out
 
-
 " Use different status lines for active and inactive windows.
 " From Reddit comment:
 " <https://www.reddit.com/r/vim/comments/nyrv7c/comment/h1ly6pt/>
@@ -221,4 +218,29 @@ augroup Statusline
 	autocmd BufLeave,WinLeave,TabLeave * setlocal statusline=%!StatuslineInactive()
 	autocmd BufRead,BufWrite * let b:gitinfo = GitInfo(expand('%:f'))
 augroup END
+
+function! GitInfo(path) abort
+	if &modifiable
+		try
+			execute 'lcd' fnamemodify(a:path, ":h")
+		catch
+			return ""
+		endtry
+
+		let gitrepoparse = system("git rev-parse --show-toplevel | xargs basename")
+		if v:shell_error != 0
+			return ""
+		endif
+		let gitrepo = substitute(gitrepoparse, '\n', '', 'g')
+
+		let gitrevparse = system("git rev-parse --abbrev-ref HEAD")
+		if v:shell_error != 0
+			return ""
+		endif
+		let gitrev = substitute(gitrevparse, '\n', '', 'g')
+
+		lcd -
+		return gitrepo."➜".gitrev
+	endif
+endfunction
 
