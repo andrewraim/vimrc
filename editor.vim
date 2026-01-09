@@ -20,7 +20,10 @@ if has("autocmd")
 	\ endif
 endif
 
-" Switch syntax highlighting on, when the terminal has colors
+" Search path to include subfolders
+set path+=**
+
+" Switch syntax highlighting on, when the terminal has colors.
 " Also switch on highlighting the last used search pattern.
 " Also incremental search and highlight. This is nice to have, but can slow
 " down over a slow network connection <https://vi.stackexchange.com/a/22065>
