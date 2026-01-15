@@ -16,6 +16,10 @@ nnoremap <leader>dt "=strftime("%H:%M:%S")<cr>p
 nnoremap <leader>nn :set number!<cr>
 nnoremap <leader>nr :set relativenumber!<cr>
 
+" Stay in visual mode after indenting or unindenting
+vnoremap > >gv
+vnoremap < <gv
+
 " ***** Navigation *****
 " Navigate between windows and tabs with preferred cursor binds. Includes
 " special consideration for terminal commands to take precedence over
