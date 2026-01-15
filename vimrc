@@ -7,4 +7,5 @@ runtime statusline.vim
 runtime r.vim
 runtime markdown.vim
 runtime term.vim
+runtime plugin.vim
 
