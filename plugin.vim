@@ -20,22 +20,5 @@ endfunction
 call s:ensure('ubaldot/vim-outline')
 
 " ----- Configuration -----
+runtime vim-plugin.vim
 
-" export var patterns = {
-" ...
-"   quarto: [
-"     (_, val) => val =~ '^\s*#\+[^|]'
-"   ],
-" ...
-" }
-
-" export var sanitizers = {
-" ...
-"   quarto: [
-"     {'\v^(\s*)(#)': '\2'},
-"     {'^#\+': "\\=repeat(' ', 2 * len(submatch(0)))"},
-"     {'^\s\{3}': ''},
-"     {'{.*}': ''}
-"   ],
-" ...
-" }
