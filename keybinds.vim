@@ -2,7 +2,7 @@
 let mapleader = " "
 
 " Open netrw (default file browser) with <leader>cd
-nnoremap <leader>cd :Ex<cr>
+nnoremap <silent> <leader>cd :Ex<cr>
 
 " Unbind Q from entering 'Ex' mode
 nnoremap Q <nop>
@@ -13,8 +13,8 @@ nnoremap <leader>df "=strftime("%m/%d/%Y")<cr>p
 nnoremap <leader>dt "=strftime("%H:%M:%S")<cr>p
 
 " Toggle numbering
-nnoremap <leader>nn :set number!<cr>
-nnoremap <leader>nr :set relativenumber!<cr>
+nnoremap <silent> <leader>nn :set number!<cr>
+nnoremap <silent> <leader>nr :set relativenumber!<cr>
 
 " Stay in visual mode after indenting or unindenting
 vnoremap > >gv
@@ -79,5 +79,4 @@ vnoremap gf y :e <c-r>"<cr>
 inoremap <c-space> <c-n>
 inoremap <c-@> <c-n>
 inoremap <NUL> <c-n>
-
 
