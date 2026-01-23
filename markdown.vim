@@ -40,6 +40,13 @@ xnoremap <expr> <leader>mc mode() ==# 'V' ?
 \ 'c```<cr><c-r>"```<cr><esc>' :
 \ 'c```<cr><c-r>"<cr>```<cr><esc>'
 
+
+" Turn text into list items: unordered, ordered, and todo (checkbox)
+" TBD: what would we want to do in visual mode (line and char selections)?
+nnoremap <leader>miu 0 I-<space><esc>
+nnoremap <leader>mio 0 I1.<space><esc>
+nnoremap <leader>mit 0 I-<space>[<space>]<space><esc>
+
 " These make current word or selection into a code block, and also prompt for a
 " string label to be placed after the first fence.
 nnoremap <leader>mv caw```.input("Block type: ").<cr><c-r>"<cr>```<cr><esc>
