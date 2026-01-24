@@ -84,9 +84,12 @@ function! MarkdownBinds()
 	nmap <s-tab> <leader>mp
 endfunction
 
+" Second line enables our binds
+" Third line is a workaround because something is enabling expandtab ...
 augroup MarkdownBindGroup
 	autocmd!
 	autocmd FileType markdown,quarto,rmd :call MarkdownBinds()
+	aautocmd BufNewFile,BufRead *.md setlocal noexpandtab
 augroup END
 
 " This doesn't quite work yet, but it should make a popup menu to select the
