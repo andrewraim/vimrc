@@ -89,7 +89,7 @@ endfunction
 augroup MarkdownBindGroup
 	autocmd!
 	autocmd FileType markdown,quarto,rmd :call MarkdownBinds()
-	aautocmd BufNewFile,BufRead *.md setlocal noexpandtab
+	autocmd BufNewFile,BufRead *.md setlocal noexpandtab
 augroup END
 
 " This doesn't quite work yet, but it should make a popup menu to select the
