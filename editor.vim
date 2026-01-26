@@ -52,6 +52,9 @@ set tabstop=4
 set shiftwidth=4
 set noexpandtab
 
+" Enable wrap at word boundaries so that it looks like word processor
+set linebreak
+
 " Case insensitive searching, unless capital letter(s) are used.
 set ignorecase
 set smartcase
