@@ -20,6 +20,9 @@ nnoremap <silent> <leader>nr :set relativenumber!<cr>
 vnoremap > >gv
 vnoremap < <gv
 
+" Turn off highlighting from a previous search
+nnoremap <silent> <leader>/ :nohl<cr>
+
 " ***** Navigation *****
 " Navigate between windows and tabs with preferred cursor binds. Includes
 " special consideration for terminal commands to take precedence over
