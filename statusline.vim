@@ -200,14 +200,14 @@ endfunction
 "hi User9 ctermbg=000 ctermfg=244 guibg=black guifg=grey   " Dimmed out
 
 " Blue with subtle contrast
-hi User1 ctermbg=033 ctermfg=254 guibg=green guifg=white  " Info 1
-hi User2 ctermbg=027 ctermfg=254 guibg=blue  guifg=white  " Info 2
-hi User3 ctermbg=026 ctermfg=254 guibg=blue  guifg=white  " Info 3
-hi User4 ctermbg=026 ctermfg=254 guibg=gray  guifg=white  " Info 4
-hi User5 ctermbg=026 ctermfg=254 guibg=gray  guifg=white  " Info 5
-hi User6 ctermbg=025 ctermfg=254 guibg=gray  guifg=white  " Info 6
-hi User7 ctermbg=024 ctermfg=254 guibg=gray  guifg=white  " Info 7
-hi User9 ctermbg=000 ctermfg=244 guibg=black guifg=grey   " Dimmed out
+hi User1 ctermbg=033 ctermfg=254 guibg=#0087ff guifg=#e4e4e4  " Info 1
+hi User2 ctermbg=027 ctermfg=254 guibg=#005fff guifg=#e4e4e4  " Info 2
+hi User3 ctermbg=026 ctermfg=254 guibg=#005fd7 guifg=#e4e4e4  " Info 3
+hi User4 ctermbg=026 ctermfg=254 guibg=#005fd7 guifg=#e4e4e4  " Info 4
+hi User5 ctermbg=026 ctermfg=254 guibg=#005fd7 guifg=#e4e4e4  " Info 5
+hi User6 ctermbg=025 ctermfg=254 guibg=#005faf guifg=#e4e4e4  " Info 6
+hi User7 ctermbg=024 ctermfg=254 guibg=#005f87 guifg=#e4e4e4  " Info 7
+hi User9 ctermbg=000 ctermfg=244 guibg=#000000 guifg=#808080  " Dimmed out
 
 " Use different status lines for active and inactive windows.
 " From Reddit comment:
