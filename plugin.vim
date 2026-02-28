@@ -21,5 +21,5 @@ call s:ensure('ubaldot/vim-outline')
 call s:ensure('jamessan/vim-gnupg')
 
 " ----- Configuration -----
-runtime vim-plugin.vim
+runtime vim-outline.vim
 
